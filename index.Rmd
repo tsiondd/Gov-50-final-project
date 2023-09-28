@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Tsion Debebe"
 description: "My final project"
 output:
   distill::distill_article:
@@ -9,6 +9,9 @@ output:
 
 
 
-## Project thoughts
+## Ideas
 
-I am interested in exploring data related to...
+
+-Social media analytics (take statistics on recent fashion/ runway trends, tiktok dances, and consumer behavior)
+
+-Recommendations using survey (software takes into account what the user's interests, values, and activites are and recommends movies, TV shows, and activites for them to try)
