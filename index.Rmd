@@ -15,3 +15,101 @@ output:
 -Social media analytics (take statistics on recent fashion/ runway trends, tiktok dances, and consumer behavior)
 
 -Recommendations using survey (software takes into account what the user's interests, values, and activites are and recommends movies, TV shows, and activites for them to try)
+
+Is there a correlation between which continent a country is located and how many civil wars they have had? Through this experiment, I want to study how different regions enter war and how often have civil wars throughout their history. Personally, I predict that countries that are located in Africa and the Middle East are more likely to experience civil wars throughout their history. After analyzing the data, I hypothesize that Western countries are likely to experience fewer civil wars. I believe that countries who are ruled through military junta's and authoritarian regimes are more likely to experience civil unrest.
+My data sample consists of years that the civil war occured, how many civil wars the country experienced in a given time frame, and the name of the country. My outcome variable is the frequence of civil wars in the given number of years provided in the dataset. After, I will analyze which geographic region the countries that experience the highest number of civil wars are located. I will test my hypothesis using those metrics. If i observe that 5 or more of the countries that experience the highest number of civil wars are located within a specific geographic region, then I will know if my theory is proven or not.
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+civil_war <- read_csv("civilwar.csv")
+
+civil_war
+```
+
+```{r}
+ggplot(data = violence,
+       mapping = aes(x = code,
+                     y = war60)) +
+
+labs( x = "Name of Country" , 
+y = "National Wars on Territory")
+
+geom_point()
+geom_smooth()
+```
+
+```{r}
+civil_war |>
+  filter(nafrme == 1)
+
+civil_war <- civil_war |>
+  mutate(Natural_Resource = if_else(Oil == 1,
+                                      "Oil",
+                                      "No Oil"))
+
+plot_q0 <- civil_war |>
+  ggplot(aes(y=polity2, x=Natural_Resource)) +
+  geom_boxplot()
+
+plot_q1 <- civil_war |>
+  filter(nafrme == 1) |>
+  ggplot(aes(y=polity2, x=Natural_Resource)) +
+  geom_boxplot()
+
+plot_q2 <- civil_war |>
+  filter(war == 1) |>
+  ggplot(aes(y=polity2, x=Natural_Resource)) +
+  geom_boxplot()
+
+plot_q0
+plot_q1
+plot_q2
+```
+While looking at the correlation between war democracy levels and natural resources, we can see that countries with lower levels of democracy are less likely to have oil as a natural resource. While other countries with higher levels of democracy are less likely to have oil and other natural resources. 
+```{r}
+civil_war |>
+  filter(nafrme == 1)
+
+civil_war <- civil_war |>
+  mutate(War_or_No_War = if_else(war == 1,
+                                      "War",
+                                      "No War"))
+
+plot_q3 <- civil_war |>
+  ggplot(aes(y=polity2, x=War_or_No_War)) +
+  geom_boxplot()
+
+plot_q4 <- civil_war |>
+  filter(nafrme == 1) |>
+  ggplot(aes(y=polity2, x=War_or_No_War)) +
+  geom_boxplot()
+
+plot_q3
+plot_q4
+```
+The polity2 variable represents the level of democracy within a specific country. For instance, we can see that countries with lower levels of democracy are less likely to experience war while countries with higher levels of democracy are less likely to experience war. 
+```{r}
+civil_war |>
+  filter(nafrme == 1)
+
+civil_war <- civil_war |>
+  mutate(War_or_No_War = if_else(war == 1,
+                                      "War",
+                                      "No War"))
+
+plot_q6 <- civil_war |>
+  ggplot(aes(y=pop, x=War_or_No_War)) +
+  geom_boxplot()
+
+plot_q7 <- civil_war |>
+  filter(nafrme == 1) |>
+  ggplot(aes(y=pop, x=War_or_No_War)) +
+  geom_boxplot()
+
+plot_q6
+plot_q7
+```
+This graphic shows that countries with larger populations are more likely to have experienced wars at least once in their lifetime. Additonally, countries with smaller populations are less likely to have experienced wars. The "No Wars" column has a significantly lower average and likeliness of experiencing war. 
