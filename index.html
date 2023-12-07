@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["civilwar.csv","Exam 1 PDF.pdf","Exam 1.pdf","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-2-2.png","index_files/figure-html5/unnamed-chunk-2-3.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-4-2.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","Pset 5.pdf","Pset 6.pdf","Pset 7.pdf","Pset 8.pdf"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1520,7 +1520,91 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="ideas">Ideas</h2>
 <p>-Social media analytics (take statistics on recent fashion/ runway trends, tiktok dances, and consumer behavior)</p>
 <p>-Recommendations using survey (software takes into account what the user’s interests, values, and activites are and recommends movies, TV shows, and activites for them to try)</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>#H# Hypothesis</p>
+<p>Is there a correlation between which continent a country is located and how many civil wars they have had? Through this experiment, I want to study how different regions enter war and how often have civil wars throughout their history. Personally, I predict that countries that are located in Africa and the Middle East are more likely to experience civil wars throughout their history. After analyzing the data, I hypothesize that Western countries are likely to experience fewer civil wars. I believe that countries who are ruled through military junta’s and authoritarian regimes are more likely to experience civil unrest.
+My data sample consists of years that the civil war occured, how many civil wars the country experienced in a given time frame, and the name of the country. My outcome variable is the frequence of civil wars in the given number of years provided in the dataset. After, I will analyze which geographic region the countries that experience the highest number of civil wars are located. I will test my hypothesis using those metrics. If i observe that 5 or more of the countries that experience the highest number of civil wars are located within a specific geographic region, then I will know if my theory is proven or not.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jennybc/gapminder'>gapminder</a></span><span class='op'>)</span></span>
+<span><span class='va'>civil_war</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"civilwar.csv"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>civil_war</span><span class='op'>&lt;-</span> <span class='va'>civil_war</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>nafrme</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>civil_war</span> <span class='op'>&lt;-</span> <span class='va'>civil_war</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Natural_Resource <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>Oil</span> <span class='op'>==</span> <span class='fl'>1</span>,</span>
+<span>                                      <span class='st'>"Oil"</span>,</span>
+<span>                                      <span class='st'>"No Oil"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>plot_q0</span> <span class='op'>&lt;-</span> <span class='va'>civil_war</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='va'>polity2</span>, x<span class='op'>=</span><span class='va'>Natural_Resource</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>plot_q1</span> <span class='op'>&lt;-</span> <span class='va'>civil_war</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='va'>polity2</span>, x<span class='op'>=</span><span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='va'>plot_q0</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_q1</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-2.png" width="624" /></p>
+</div>
+<p>While looking at the correlation between war democracy levels and natural resources, we can see that countries with lower levels of democracy are less likely to have oil as a natural resource. While other countries with higher levels of democracy are less likely to have oil and other natural resources.</p>
+<p>The polity2 variable represents the level of democracy within a specific country. For instance, we can see that countries with lower levels of democracy are less likely to experience war while countries with higher levels of democracy are less likely to experience war.</p>
+<p>This graphic shows that countries with larger populations are more likely to have experienced wars at least once in their lifetime. Additionally, countries with smaller populations are less likely to have experienced wars. The “No Wars” column has a significantly lower average and likeliness of experiencing war. There doesn’t seem to be a very clear relationship and there does (talk about spread abd resources)</p>
+<h2 id="results">Results</h2>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code># A tibble: 3 × 4
+  term                       est        se     pval
+  &lt;chr&gt;                    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)         -1.67      0.300     3.11e- 8
+2 pop                  0.0000523 0.0000130 6.42e- 5
+3 Natural_ResourceOil -6.43      0.375     5.62e-57</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient Estimate</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">P-Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-1.674970</td>
+<td style="text-align: right;">0.299867</td>
+<td style="text-align: right;">0.0e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop</td>
+<td style="text-align: right;">0.000052</td>
+<td style="text-align: right;">0.000013</td>
+<td style="text-align: right;">6.4e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Natural_ResourceOil</td>
+<td style="text-align: right;">-6.428115</td>
+<td style="text-align: right;">0.374935</td>
+<td style="text-align: right;">0.0e+00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
