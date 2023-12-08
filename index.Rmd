@@ -7,21 +7,17 @@ output:
     self_contained: false
 ---
 
-
-
 ## Ideas
 
+-I want to understand how different kinds of factors impact the likeliness of a country experiencing a civil war at least once in a lifetime. 
 
--Social media analytics (take statistics on recent fashion/ runway trends, tiktok dances, and consumer behavior)
+-The concept of authoritarian regimes is extremely interesting because different democratization levels are usually dependent on certain factors like strength of military, freedom of speech, and natural resource revenue. If I can focus on some of these factors for my project, it would be very interesting.
 
--Recommendations using survey (software takes into account what the user's interests, values, and activites are and recommends movies, TV shows, and activites for them to try)
+## Hypothesis
 
-#H# Hypothesis
+For my project, I want to find the correlation between polity (levels of democracy), population, and oil. I want to study how countries in the Middle East and North African are likely to have high or low democracy levels by analyzing the relationship between polity, popualtion, and natural resource. After analyzing the dataset titled, "civil war", I can hypothesize that countries with higher populations and more oil are less likely to be democratic. My dataset consists of all countries and different variables however, I am soley focused on Middle East/North African countries and oil, population, and polity as factors. Therefore, my outcome variable is polity. I will test my hypothesis by creating a liner regresission and anaylzing visuals that represent the relationship between polity and the different variables.
 
-Is there a correlation between which continent a country is located and how many civil wars they have had? Through this experiment, I want to study how different regions enter war and how often have civil wars throughout their history. Personally, I predict that countries that are located in Africa and the Middle East are more likely to experience civil wars throughout their history. After analyzing the data, I hypothesize that Western countries are likely to experience fewer civil wars. I believe that countries who are ruled through military junta's and authoritarian regimes are more likely to experience civil unrest.
-My data sample consists of years that the civil war occured, how many civil wars the country experienced in a given time frame, and the name of the country. My outcome variable is the frequence of civil wars in the given number of years provided in the dataset. After, I will analyze which geographic region the countries that experience the highest number of civil wars are located. I will test my hypothesis using those metrics. If i observe that 5 or more of the countries that experience the highest number of civil wars are located within a specific geographic region, then I will know if my theory is proven or not.
-
-```{r}
+```{r echo=FALSE}
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
@@ -29,9 +25,9 @@ library(gapminder)
 civil_war <- read_csv("civilwar.csv")
 
 ```
+## Results 
 
-
-```{r}
+```{r echo=FALSE}
 civil_war<- civil_war |>
   filter(nafrme == 1)
 
@@ -56,13 +52,14 @@ plot_q0
 plot_q1
 
 ```
-While looking at the correlation between war democracy levels and natural resources, we can see that countries with lower levels of democracy are less likely to have oil as a natural resource. While other countries with higher levels of democracy are less likely to have oil and other natural resources. 
+The box plot above displays the relationship between Natural Resource (oil) and democracy levels. For instance, Middle Eastern/North African countries with no oil, have a much higher median than countries with oil. The median level of democracy is about -2.7 which means they have more democratization and a higher polity score. 
 
-The polity2 variable represents the level of democracy within a specific country. For instance, we can see that countries with lower levels of democracy are less likely to experience war while countries with higher levels of democracy are less likely to experience war. 
+Additionally, countries with oil have lower levels of democracy. For instance, the box plot above shows us that they have a much lower median at about -8.5 which is extremely low. 
 
-This graphic shows that countries with larger populations are more likely to have experienced wars at least once in their lifetime. Additionally, countries with smaller populations are less likely to have experienced wars. The "No Wars" column has a significantly lower average and likeliness of experiencing war. There doesn't seem to be a very clear relationship and there does (talk about spread abd resources)
+The correlation between natural resource (oil) and democracy could be due to how authoritarian regimes utilize natural resource revenue. For instance, many oil-rich countries in the Middle East are considered authoritarian regimes because they use natural resources to repress citizens and distirbute rents (money) to keep the citizens satisfied. That way, even if citizens are living under an authoritarian regime, they still reap many benefits so they have less of an incentive to revolt against the regime. 
 
-## Results
+
+The scatter plot above demonstrates the relationship between population and levels of democracy as well. After analyzing the data, there isn't a very clear correlation but, there seems to be a positive correlation between population and polity levels. 
 
 ```{r echo=FALSE}
 library(broom)
@@ -76,3 +73,11 @@ knitr::kable(linearregression, digits=6, col.names = c("Variable", "Coefficient 
 
 ```
 
+
+The linear regression above represents the coefficients of oil, natural resource, and population. For the population, the number is extremely small and close to 0 so if we were to round, the number would be zero. However, when looking at how much difference one single person would make, it isn't very significant compared to 1,000 people. When interpreting that coefficient, we can understand thar for every 1 person, there is a 0.0000052 unit increase in democracy levels. 
+
+Additionally, for Natural Resource (oil), the coefficient is -6.428115 which means that for every 1 unit of oil, there is a decrease of -6.428116 units on democracy levels. Moreover, if a country were to go from being a country with oil to no oi, then it would impact the polity score with an average of -6.428
+
+The P-value is less than 0.05 which means that the results from the linear regression table are statistically significant. Under the alpha of 0.05, we can reject the null hypothesis that there is no correlation between polity and natural resou 
+
+The intercept in the table is -1.674970 which represents the case if there was a population of 0 people, the polity score would be -1.675.
