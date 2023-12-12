@@ -7,15 +7,17 @@ output:
     self_contained: false
 ---
 
-## Ideas
+## Introduction
 
--I want to understand how different kinds of factors impact the likeliness of a country experiencing a civil war at least once in a lifetime. 
+I want to understand how different kinds of factors impact the likeliness of a country experiencing a civil war at least once in a lifetime. The concept of authoritarian regimes is extremely interesting because different democratization levels are usually dependent on certain factors like strength of military, freedom of speech, and natural resource revenue. If I can focus on some of these factors for my project, it would be very interesting.For my project, I want to find the correlation between polity (levels of democracy), population, and oil. I want to study how countries in the Middle East and North African (MENA) are likely to have high or low democracy levels by analyzing the relationship between population, and natural resource presence. 
 
--The concept of authoritarian regimes is extremely interesting because different democratization levels are usually dependent on certain factors like strength of military, freedom of speech, and natural resource revenue. If I can focus on some of these factors for my project, it would be very interesting.
+My main hypothesis predicts that Middle Eastern/ North African countries with higher populations and more natural resources have lower levels of democracy. I am hypothesizing based off of prior knowledge of how authoritarian regimes in the Middle East and North Africa are structured. It is important to analyze this because many MENA countries live under very repressive regimes that restrict democracy and freedom. Analyzing these different factors will help us create understanding of how natural resources bring in revenue and support higher populations of people, so regimes can use their funds to keep their residents happy. Therefore, they are free to increase repression and decrease democratic freedom because the residents are reaping economic benefits. 
 
-## Hypothesis
+## Data Section
 
-For my project, I want to find the correlation between polity (levels of democracy), population, and oil. I want to study how countries in the Middle East and North African are likely to have high or low democracy levels by analyzing the relationship between polity, popualtion, and natural resource. After analyzing the dataset titled, "civil war", I can hypothesize that countries with higher populations and more oil are less likely to be democratic. My dataset consists of all countries and different variables however, I am soley focused on Middle East/North African countries and oil, population, and polity as factors. Therefore, my outcome variable is polity. I will test my hypothesis by creating a liner regresission and anaylzing visuals that represent the relationship between polity and the different variables.
+The data set titled, "civil war" includes all countries and a variety of factors including religion, population, oil, presence of civil war in history, etc. However, I am solely focused on Middle East/North African countries and oil, population, and polity as factors. I am choosing the MENA region as my focus because they are petrol states with high incomes and tend to have lower levels of democracy. 
+
+My outcome variable is polity and my contributing variables are oil and population size. I will test my hypothesis by creating a liner regression table, a correlation coefficient variable, and other visuals represent the relationship between polity and the variables I am focusing on. Because I am looking at two different contributing factors, I do not have one "main" outcome of interest whereas I am more interested in how both of those factors show a relationship to democracy levels.
 
 ```{r echo=FALSE}
 library(tidyverse)
@@ -25,9 +27,8 @@ library(gapminder)
 civil_war <- read_csv("civilwar.csv")
 
 ```
-## Results 
 
-```{r echo=FALSE}
+```{r}
 civil_war<- civil_war |>
   filter(nafrme == 1)
 
@@ -39,45 +40,88 @@ civil_war <- civil_war |>
 plot_q0 <- civil_war |>
   group_by(country)|>
   ggplot(aes(y=polity2, x=Natural_Resource)) +
-  geom_boxplot()
+  geom_boxplot() +
+ labs(title = "Relationship Between Presence of Oil and Democracy Index" , x = "Oil", y = "Democracy Index") 
 
+plot_q0
+
+```
+The box plot above displays the relationship between oil and democracy levels. For instance, Middle Eastern/North African countries with no oil, have a much higher median than countries with oil. The median level of democracy is about -2.7 which means they have more democratization and a higher polity score. 
+
+Additionally, countries with oil have lower levels of democracy. For instance, the box plot above shows us that they have a much lower median at about -8.5 which is extremely low. There are also some outliers present on the top of the graph that show the very few countries who do have both oil and high levels of democracy.
+
+The correlation between oil and democracy could be due to how authoritarian regimes utilize natural resource revenue. For instance, many oil-rich countries in the Middle East are considered authoritarian regimes because they use natural resources to repress citizens and distribute rents (money) to keep the citizens satisfied. That way, even if citizens are living under an authoritarian regime, they still reap many benefits so they have less of an incentive to revolt against the regime. 
+
+
+```{r}
+plot_time <- civil_war |>
+  group_by(country)|>
+  ggplot(aes(y=polity2, x=year, color = country)) +
+  geom_point()+
+  geom_smooth() +
+  labs(title = "Relationship Between Democracy Index and Year by Country" , x = "Years", y = "Democracy Index")
+
+plot_time
+
+```
+A lot of volatility in the levels of democracy across the different countries in the MENA region. Although there isn't a clear relationship, this graph intends to visualize the MENA countries' democracy levels over the years (until 2000). However, by just looking at the graph, we can see that most countries skew on the lower end of the Democracy Index spectrum. Meaning, most countries have low levels of democracy towards the beginning and the end of the graph. For instance, Turkey had a massive shift in democracy levels in about 1975 when it experiences a drop in drmocracy levels, but then it steadily increased to an all-time high from the 1980s onward. 
+
+## Results 
+
+```{r}
 plot_q1 <- civil_war |>
   group_by(country)|>
   ggplot(aes(y=polity2, x=pop)) +
   geom_point()+
-  geom_smooth()
+  geom_smooth() +
+  labs(title = "Relationship Between Population Size and Democracy Index" , x = "Population", y = "Democracy Index")
 
-
-plot_q0
 plot_q1
-
 ```
-The box plot above displays the relationship between Natural Resource (oil) and democracy levels. For instance, Middle Eastern/North African countries with no oil, have a much higher median than countries with oil. The median level of democracy is about -2.7 which means they have more democratization and a higher polity score. 
-
-Additionally, countries with oil have lower levels of democracy. For instance, the box plot above shows us that they have a much lower median at about -8.5 which is extremely low. 
-
-The correlation between natural resource (oil) and democracy could be due to how authoritarian regimes utilize natural resource revenue. For instance, many oil-rich countries in the Middle East are considered authoritarian regimes because they use natural resources to repress citizens and distirbute rents (money) to keep the citizens satisfied. That way, even if citizens are living under an authoritarian regime, they still reap many benefits so they have less of an incentive to revolt against the regime. 
+The scatter plot above demonstrates the relationship between population and levels of democracy as well. After analyzing the data, there isn't a very clear correlation but, there seems to be a positive correlation between population and the democracy index. There is a negative relationship for populations that have about 10,000 people and after they have reached over 10,000 people there is more of a positive relationship and the democracy index goes up. At first, we can see having a larger population doesn't equate to a more democratic society, but after 10,000 people there seems to be more democracy.
 
 
-The scatter plot above demonstrates the relationship between population and levels of democracy as well. After analyzing the data, there isn't a very clear correlation but, there seems to be a positive correlation between population and polity levels. 
-
-```{r echo=FALSE}
+```{r}
 library(broom)
 
-linearregression <- lm(polity2 ~ pop + Natural_Resource, data = civil_war)|>
-broom::tidy()|>
-select(term, est=estimate, se=std.error, pval=p.value)
-linearregression
+labels <- c(`(Intercept)` = "Intercept", pop = "Population Size", Natural_ResourceOil = "Presence of Oil")
 
+linearregression <- lm(polity2 ~ pop + Natural_Resource, data = civil_war) |>
+  broom::tidy() |>
+  select(term, est=estimate, se=std.error, pval=p.value)
+
+linearregression$term <- labels[linearregression$term]
 knitr::kable(linearregression, digits=6, col.names = c("Variable", "Coefficient Estimate", "Standard Error", "P-Value"))
 
 ```
+The linear regression above represents the coefficients of oil, natural resource, and population. For the population, the number is extremely small and close to 0 so if we were to round, the number would be zero. However, when looking at how much difference one single person would make, it isn't very significant compared to say, 1,000 people. When interpreting that coefficient, we can understand that for every 1 person, there is a 0.0000052 unit increase in democracy levels. 
 
+Additionally, oil, the coefficient is -6.428115 which means that for every 1 unit of oil, there is a decrease of -6.428116 units on democracy levels. Moreover, if a country were to go from being a country with oil to no oil, then it would impact the polity score with an average of -6.428.
 
-The linear regression above represents the coefficients of oil, natural resource, and population. For the population, the number is extremely small and close to 0 so if we were to round, the number would be zero. However, when looking at how much difference one single person would make, it isn't very significant compared to 1,000 people. When interpreting that coefficient, we can understand thar for every 1 person, there is a 0.0000052 unit increase in democracy levels. 
-
-Additionally, for Natural Resource (oil), the coefficient is -6.428115 which means that for every 1 unit of oil, there is a decrease of -6.428116 units on democracy levels. Moreover, if a country were to go from being a country with oil to no oi, then it would impact the polity score with an average of -6.428
-
-The P-value is less than 0.05 which means that the results from the linear regression table are statistically significant. Under the alpha of 0.05, we can reject the null hypothesis that there is no correlation between polity and natural resou 
+The p-value is less than 0.05 which means that the results from the linear regression table are statistically significant. Under the alpha of 0.05, we can reject the null hypothesis that there is no correlation between polity and natural resou 
 
 The intercept in the table is -1.674970 which represents the case if there was a population of 0 people, the polity score would be -1.675.
+
+```{r}
+civil_war<- civil_war|>
+  drop_na(pop, polity2, Oil)
+
+cor1 <- cor(civil_war$pop, civil_war$polity2)|>
+  knitr::kable(digits= 4, col.names = "Correlation Coefficient Between Population and Democracy Index")
+
+cor2 <- cor(civil_war$Oil, civil_war$polity2)|>
+  knitr::kable(digits= 4, col.names = "Correlation Coefficient Between Presence of Oil and Democracy Index")
+cor1
+cor2
+```
+There is a positive relationship between population and democracy index because the correlation coefficient is 0.0977. When comparing it to the linear regression coefficient of 0.000052, it is also pretty weak. This may be due to the fact that country populations tend to be extremely large, so if the population is only increasing by 1 person at a time, we can't expect it to have a significant impact on the democracy levels. However, if the number of poeple were to be increasing at a much larger scale, then it could have a larger significance.
+
+There is a negative relationship between and wether or not a country has oil and its democracy index. The correlation coefficient is -0.4961 and when compared to the linear regression coefficient of -6.428115, it shows a similar trend. Countries with oil tend to have much lower levels of democracy.
+
+## Conclusion 
+
+After analyzing the civilwar data set and creating visuals, we can conclude that countries with higher populations and oil are less likely to be democratic. These findings directly support my hypothesis because countries with higher democracy levels of democracy had lower populations and were less likely to have oil. There was a positive correlation coefficient relationship between population and democracy index although it was pretty weak. However, there was a negative correlation coefficient relationship between oil and democracy. Therefore, I found full support for my hypothesis throughout my report. Reflecting on my final project and all of my milestones, I am pleased with the results of my study and I have a lot of passion for politics in the MENA region so I am glad I was able to study it further through this course. 
+
+However, there are some limitations to this study and this data set. For instance, I had originally wanted my output variable to be the likelihood of a country experiencing a civil war at least once in their history. However, the war variable was a binary variable which would have been difficult to incorporate into a linear regression table. So, I had to switch my output variable and scope of the research.
+
+If the dataset had allowed, I would have loved to look into other factors that could contribute to democracy levels. I chose the best variables with the available data I had, but some of them don't fully encompass democracy levels. Although oil is a good variable, there are more explanatory variables that could provide a clearer correlation such as wealth, political freedom, etc. 
