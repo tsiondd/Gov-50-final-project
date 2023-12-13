@@ -64,7 +64,7 @@ plot_time <- civil_war |>
 plot_time
 
 ```
-A lot of volatility in the levels of democracy across the different countries in the MENA region. Although there isn't a clear relationship, this graph intends to visualize the MENA countries' democracy levels over the years (until 2000). However, by just looking at the graph, we can see that most countries skew on the lower end of the Democracy Index spectrum. Meaning, most countries have low levels of democracy towards the beginning and the end of the graph. For instance, Turkey had a massive shift in democracy levels in about 1975 when it experiences a drop in drmocracy levels, but then it steadily increased to an all-time high from the 1980s onward. 
+There seems to be a lot of volatility in the levels of democracy across the different countries in the MENA region. Although there isn't a clear relationship, this graph intends to visualize the MENA countries' democracy levels over the years (until 2000). However, by just looking at the graph, we can see that most countries skew on the lower end of the Democracy Index spectrum. Meaning, most countries have low levels of democracy towards the beginning and the end of the graph. For instance, Turkey had a massive shift in democracy levels in about 1975 when it experiences a drop in democracy levels, but then it steadily increased to an all-time high from the 1980s onward. 
 
 ## Results 
 
@@ -78,7 +78,7 @@ plot_q1 <- civil_war |>
 
 plot_q1
 ```
-The scatter plot above demonstrates the relationship between population and levels of democracy as well. After analyzing the data, there isn't a very clear correlation but, there seems to be a positive correlation between population and the democracy index. There is a negative relationship for populations that have about 10,000 people and after they have reached over 10,000 people there is more of a positive relationship and the democracy index goes up. At first, we can see having a larger population doesn't equate to a more democratic society, but after 10,000 people there seems to be more democracy.
+The scatter plot above demonstrates the relationship between population and levels of democracy as well. After analyzing the data, there isn't a very clear and strong correlation yet, there seems to be a positive correlation between population and the democracy index. There is a negative relationship for populations that have about 10,000 people and after they have reached over 10,000 people there is more of a positive relationship and the democracy index goes up. At first, we can see having a larger population doesn't equate to a more democratic society, but after 10,000 people there seems to be more democracy.
 
 
 ```{r}
@@ -94,9 +94,9 @@ linearregression$term <- labels[linearregression$term]
 knitr::kable(linearregression, digits=6, col.names = c("Variable", "Coefficient Estimate", "Standard Error", "P-Value"))
 
 ```
-The linear regression above represents the coefficients of oil, natural resource, and population. For the population, the number is extremely small and close to 0 so if we were to round, the number would be zero. However, when looking at how much difference one single person would make, it isn't very significant compared to say, 1,000 people. When interpreting that coefficient, we can understand that for every 1 person, there is a 0.0000052 unit increase in democracy levels. 
+The linear regression above represents the coefficients of oil, democracy, and population. For the population, the number is extremely small and close to 0 so if we were to round, the number would be zero. However, when looking at how much difference one single person would make, it isn't very significant compared to say, 1,000 people. When interpreting that coefficient, we can understand that for every 1 person, there is a 0.0000052 unit increase in democracy levels. 
 
-Additionally, oil, the coefficient is -6.428115 which means that for every 1 unit of oil, there is a decrease of -6.428116 units on democracy levels. Moreover, if a country were to go from being a country with oil to no oil, then it would impact the polity score with an average of -6.428.
+Additionally, the for oil coefficient is -6.428115 which means that for every 1 unit of oil, there is a decrease of -6.428115 units on democracy levels. Moreover, if a country were to go from being a country with oil to no oil, then it would impact the polity score with an average of -6.428115.
 
 The p-value is less than 0.05 which means that the results from the linear regression table are statistically significant. Under the alpha of 0.05, we can reject the null hypothesis that there is no correlation between polity and natural resou 
 
@@ -124,4 +124,4 @@ After analyzing the civilwar data set and creating visuals, we can conclude that
 
 However, there are some limitations to this study and this data set. For instance, I had originally wanted my output variable to be the likelihood of a country experiencing a civil war at least once in their history. However, the war variable was a binary variable which would have been difficult to incorporate into a linear regression table. So, I had to switch my output variable and scope of the research.
 
-If the dataset had allowed, I would have loved to look into other factors that could contribute to democracy levels. I chose the best variables with the available data I had, but some of them don't fully encompass democracy levels. Although oil is a good variable, there are more explanatory variables that could provide a clearer correlation such as wealth, political freedom, etc. 
+If the dataset had allowed, I would have loved to look into other factors that could contribute to democracy levels. I chose the best variables with the available data I had, but some of them don't fully encompass democracy levels. Although oil is a good variable, there are more explanatory variables that could provide a clearer correlation such as wealth, political freedom, civil society participation, etc. 
